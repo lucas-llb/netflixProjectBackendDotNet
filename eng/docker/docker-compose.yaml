@@ -3,7 +3,7 @@ version: "3.4"
 networks:
   backend:
     driver: bridge
-  frontend:
+
 
 volumes:
   netflixproject.postgres-database:
@@ -19,4 +19,3 @@ services:
       - "15432:5432"
     networks:
       - backend
-      - frontend

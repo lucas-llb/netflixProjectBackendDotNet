@@ -14,5 +14,5 @@ public class EpisodeEntity
     public DateTime CreatedAt { get; set; }
     public DateTime UpdateAt { get; set; }
     public int SerieId { get; set; }
-    public virtual SerieEntity Serie { get; set; }
+    public SerieEntity Serie { get; set; }
 }

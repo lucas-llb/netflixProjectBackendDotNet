@@ -12,5 +12,5 @@ public class SerieEntity
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public int CategoryId { get; set; }
-    public virtual CategoryEntity Category { get; set; }
+    public CategoryEntity Category { get; set; }
 }
