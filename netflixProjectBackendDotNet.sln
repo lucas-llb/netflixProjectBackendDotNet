@@ -5,9 +5,11 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netflixProjectBackendDotNet.Api", "netflixProjectBackendDotNet.Api\netflixProjectBackendDotNet.Api.csproj", "{B2B1F145-EE89-4FBA-8383-89C4975E8345}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netflixProjectBackendDotNet.Domain", "netflixProjectBackendDotNet.Domain\netflixProjectBackendDotNet.Domain.csproj", "{E979AC2D-9923-4B89-B7FD-508DC103E4C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netflixProjectBackendDotNet.Domain", "netflixProjectBackendDotNet.Domain\netflixProjectBackendDotNet.Domain.csproj", "{E979AC2D-9923-4B89-B7FD-508DC103E4C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netflixProjectBackendDotNet.Infra", "netflixProjectBackendDotNet.Infra\netflixProjectBackendDotNet.Infra.csproj", "{D7FEDEA1-61F9-4482-8A5B-2E2EE4A95762}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netflixProjectBackendDotNet.Infra", "netflixProjectBackendDotNet.Infra\netflixProjectBackendDotNet.Infra.csproj", "{D7FEDEA1-61F9-4482-8A5B-2E2EE4A95762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netflixProjectBackendDotNet.IoC", "netflixProjectBackendDotNet.IoC\netflixProjectBackendDotNet.IoC.csproj", "{5C4C268A-1FD8-4F0C-B11A-992022B5063A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{D7FEDEA1-61F9-4482-8A5B-2E2EE4A95762}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7FEDEA1-61F9-4482-8A5B-2E2EE4A95762}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7FEDEA1-61F9-4482-8A5B-2E2EE4A95762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C4C268A-1FD8-4F0C-B11A-992022B5063A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C4C268A-1FD8-4F0C-B11A-992022B5063A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C4C268A-1FD8-4F0C-B11A-992022B5063A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C4C268A-1FD8-4F0C-B11A-992022B5063A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
