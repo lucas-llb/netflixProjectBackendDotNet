@@ -1,7 +1,8 @@
+using netflixProjectBackendDotNet.Api.Extensions;
 using Serilog;
 internal class Program
 {
-    private static void Main(string[] args)
+    public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Host.UseSerilog((context, builder) => builder.WriteTo.Console());
@@ -12,7 +13,8 @@ internal class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        
+        builder.Services.AddApiServices(builder.Configuration);
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

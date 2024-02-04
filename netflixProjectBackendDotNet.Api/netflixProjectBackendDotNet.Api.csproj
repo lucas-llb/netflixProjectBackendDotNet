@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <UserSecretsId>ab75157d-6788-4aac-af5f-f830a3d1ada9</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\netflixProjectBackendDotNet.Domain\netflixProjectBackendDotNet.Domain.csproj" />
     <ProjectReference Include="..\netflixProjectBackendDotNet.IoC\netflixProjectBackendDotNet.IoC.csproj" />
   </ItemGroup>
 
