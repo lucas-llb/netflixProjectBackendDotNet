@@ -20,6 +20,7 @@ public class SerieEntityMapping : IEntityTypeConfiguration<SerieEntity>
         builder.Property(x => x.Featured).IsRequired();
         builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValueSql("CURRENT_TIMESTAMP");
         builder.Property(x => x.UpdatedAt).IsRequired(false).ValueGeneratedOnUpdate().HasDefaultValueSql("CURRENT_TIMESTAMP");
-        builder.HasOne(x => x.Category).WithMany().HasForeignKey(x => x.CategoryId);
+
+        builder.HasMany(x => x.Episodes).WithOne(x => x.Serie).HasForeignKey(x => x.SerieId);
     }
 }

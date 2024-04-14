@@ -17,7 +17,7 @@ internal static class UserSeedData
             Email = "admin@email.com",
             Role = Domain.Constants.RoleEnum.Admin,
             Password = BC.HashPassword("123456", 12),
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
         }
     };
 }

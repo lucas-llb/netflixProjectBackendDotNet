@@ -40,7 +40,7 @@ internal static class CategorySeedData
         {
             Id = 6,
             Name = "Adventure",
-            Position = 6
+            Position = 6,
         }
     };
 }

@@ -8,13 +8,13 @@ internal class Program
         builder.Host.UseSerilog((context, builder) => builder.WriteTo.Console());
 
         // Add services to the container.
-        
-        builder.Services.AddControllers();
+
+        builder.Services.AddControllers().AddNewtonsoftJson(op => op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwagger();
-        builder.Services.AddApiServices(builder.Configuration);
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        builder.Services.AddApiServices(builder.Configuration);
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

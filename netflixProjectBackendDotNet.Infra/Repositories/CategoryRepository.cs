@@ -27,8 +27,7 @@ internal class CategoryRepository : ICategoryRepository
 
     public async Task<CategoryEntity?> GetById(int id)
     {
-        return await _dbSet
-            .AsNoTracking().Include(x => x.Series)
+        return await _dbSet.Include(x => x.Series)
             .FirstOrDefaultAsync(x => x.Id == id);
     } 
 }

@@ -16,5 +16,7 @@ public class CategoryEntityMapping : IEntityTypeConfiguration<CategoryEntity>
 
         builder.Property(t => t.Name).IsRequired().HasMaxLength(70);
         builder.Property(t => t.Position).IsRequired();
+
+        builder.HasMany(x => x.Series).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId);
     }
 }

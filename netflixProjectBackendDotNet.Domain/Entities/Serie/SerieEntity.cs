@@ -1,4 +1,5 @@
 ﻿using netflixProjectBackendDotNet.Domain.Entities.Category;
+using netflixProjectBackendDotNet.Domain.Entities.Episode;
 
 namespace netflixProjectBackendDotNet.Domain.Entities.Serie;
 
@@ -13,4 +14,5 @@ public class SerieEntity
     public DateTime? UpdatedAt { get; set; }
     public int CategoryId { get; set; }
     public CategoryEntity Category { get; set; }
+    public virtual IEnumerable<EpisodeEntity> Episodes { get; set;}
 }
