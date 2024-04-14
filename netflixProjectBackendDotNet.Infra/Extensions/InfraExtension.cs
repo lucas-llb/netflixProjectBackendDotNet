@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using netflixProjectBackendDotNet.Domain.Repositories;
 using netflixProjectBackendDotNet.Infra.Context;
+using netflixProjectBackendDotNet.Infra.Repositories;
 
 namespace netflixProjectBackendDotNet.Infra.Extensions;
 
@@ -22,5 +24,12 @@ public static class InfraExtension
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection services) =>
-        services;
+        services
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<ICategoryRepository, CategoryRepository>()
+            .AddScoped<ISerieRepository, SerieRepository>()
+            .AddScoped<IEpisodeRepository, EpisodeRepository>()
+            .AddScoped<IWatchTimeRepository, WatchTimeRepository>()
+            .AddScoped<IFavoriteRepository, FavoriteRepository>()
+            .AddScoped<ILikeRepository, LikeRepository>();
 }
