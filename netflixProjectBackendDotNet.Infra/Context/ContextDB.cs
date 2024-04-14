@@ -23,10 +23,10 @@ public class ContextDB(DbContextOptions<ContextDB> options) : DbContext(options)
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     { 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ContextDB).Assembly);
-        base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<CategoryEntity>().HasData(CategorySeedData.CategoryData);
         modelBuilder.Entity<UserEntity>().HasData(UserSeedData.UserData);
         modelBuilder.Entity<SerieEntity>().HasData(SerieSeedData.SerieData);
+        base.OnModelCreating(modelBuilder);
     }
 }

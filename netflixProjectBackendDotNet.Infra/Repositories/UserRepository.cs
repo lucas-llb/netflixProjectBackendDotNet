@@ -14,4 +14,18 @@ internal class UserRepository : IUserRepository
         _context = context;
         _dbSet = context.Set<UserEntity>();
     }
+
+    public async Task<UserEntity?> RegisterAsync(UserEntity newUser)
+    {
+        var actualUser = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Email == newUser.Email);
+
+        if (actualUser is null)
+        {
+            var entity = await _dbSet.AddAsync(newUser);
+            await _context.SaveChangesAsync();
+            return entity.Entity;
+        }
+
+        return null;
+    }
 }

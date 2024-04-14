@@ -13,6 +13,7 @@ public static class InfraExtension
     public static IServiceCollection AddInfra(this IServiceCollection services, IConfiguration configuration) =>
         services
         .AddContext(configuration)
+        .RunMigrations()
         .AddRepositories();
 
     private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration configuration)
@@ -20,6 +21,14 @@ public static class InfraExtension
         var connectionString = configuration.GetConnectionString(ConnectionString);
 
         services.AddDbContext<ContextDB>(options => options.UseNpgsql(connectionString));
+        return services;
+    }
+
+    private static IServiceCollection RunMigrations(this IServiceCollection services)
+    {
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<ContextDB>();
+        context.Database.Migrate();
         return services;
     }
 
