@@ -12,7 +12,7 @@ public class EpisodeEntity
     public string ThumbnailUrl { get; set; }
     public int SecondsLong { get; set; }
     public DateTime CreatedAt { get; set; }
-    public DateTime UpdateAt { get; set; }
+    public DateTime? UpdateAt { get; set; }
     public int SerieId { get; set; }
     public SerieEntity Serie { get; set; }
 }

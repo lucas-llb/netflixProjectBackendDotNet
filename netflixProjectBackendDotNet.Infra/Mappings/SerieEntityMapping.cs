@@ -19,7 +19,7 @@ public class SerieEntityMapping : IEntityTypeConfiguration<SerieEntity>
         builder.Property(x => x.ThumbnailUrl).IsRequired().HasMaxLength(70);
         builder.Property(x => x.Featured).IsRequired();
         builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValueSql("CURRENT_TIMESTAMP");
-        builder.Property(x => x.UpdatedAt).ValueGeneratedOnUpdate().HasDefaultValueSql("CURRENT_TIMESTAMP");
+        builder.Property(x => x.UpdatedAt).IsRequired(false).ValueGeneratedOnUpdate().HasDefaultValueSql("CURRENT_TIMESTAMP");
         builder.HasOne(x => x.Category).WithMany().HasForeignKey(x => x.CategoryId);
     }
 }

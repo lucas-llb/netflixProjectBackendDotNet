@@ -10,7 +10,7 @@ public class SerieEntity
     public string ThumbnailUrl { get; set; }
     public bool Featured { get; set; }
     public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
     public int CategoryId { get; set; }
     public CategoryEntity Category { get; set; }
 }

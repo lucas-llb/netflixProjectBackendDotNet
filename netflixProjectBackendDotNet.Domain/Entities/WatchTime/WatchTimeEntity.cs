@@ -9,7 +9,7 @@ public class WatchTimeEntity
     public int EpisodeId { get; set; }
     public int SecondsLong { get; set; }
     public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
     public UserEntity User { get; set; }
     public EpisodeEntity Episode { get; set; }
 }

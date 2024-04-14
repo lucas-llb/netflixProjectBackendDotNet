@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using netflixProjectBackendDotNet.Infra.Context;
@@ -11,9 +12,11 @@ using netflixProjectBackendDotNet.Infra.Context;
 namespace netflixProjectBackendDotNet.Infra.Migrations
 {
     [DbContext(typeof(ContextDB))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240414130343_AddLikesTable")]
+    partial class AddLikesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,44 +44,6 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Action",
-                            Position = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Documentary",
-                            Position = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Comedy",
-                            Position = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Drama",
-                            Position = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Fantasy",
-                            Position = 5
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Adventure",
-                            Position = 6
-                        });
                 });
 
             modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.Episode.EpisodeEntity", b =>
@@ -219,7 +184,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("character varying(70)");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -229,98 +194,6 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Series", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2445),
-                            Featured = true,
-                            Name = "Prison Break",
-                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                            ThumbnailUrl = "/serie/prisonbreak.jpg"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 1,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2553),
-                            Featured = true,
-                            Name = "Breaking Bad",
-                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                            ThumbnailUrl = "/serie/breakingbad.jpg"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 6,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2555),
-                            Featured = true,
-                            Name = "The Boys",
-                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                            ThumbnailUrl = "/serie/theboys.jpg"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 3,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2557),
-                            Featured = true,
-                            Name = "Friends",
-                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                            ThumbnailUrl = "/serie/friends.jpg"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CategoryId = 3,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2558),
-                            Featured = true,
-                            Name = "How I Met Your Mother",
-                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                            ThumbnailUrl = "/serie/himym.jpg"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CategoryId = 5,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2573),
-                            Featured = true,
-                            Name = "Game of Thrones",
-                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                            ThumbnailUrl = "/serie/got.jpg"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CategoryId = 5,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2610),
-                            Featured = true,
-                            Name = "House of the Dragon",
-                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                            ThumbnailUrl = "/serie/hotd.jpg"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoryId = 6,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2611),
-                            Featured = true,
-                            Name = "The Last of Us",
-                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                            ThumbnailUrl = "/serie/tlou.jpg"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoryId = 4,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2612),
-                            Featured = true,
-                            Name = "Vikings",
-                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                            ThumbnailUrl = "/serie/vikings.jpg"
-                        });
                 });
 
             modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.User.UserEntity", b =>
@@ -374,20 +247,6 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Birth = new DateTime(1991, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 594, DateTimeKind.Local).AddTicks(814),
-                            Email = "admin@email.com",
-                            FirstName = "Admin",
-                            LastName = "User",
-                            Password = "$2a$12$g.gxAX9aV7aH8wYeUpowpO/ZJrmeePqoN7Cs7Scgyu0GIGKwluYty",
-                            Phone = "(31) 99999-9999",
-                            Role = 0
-                        });
                 });
 
             modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.WatchTime.WatchTimeEntity", b =>
