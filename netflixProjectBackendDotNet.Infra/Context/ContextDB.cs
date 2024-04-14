@@ -21,7 +21,7 @@ public class ContextDB(DbContextOptions<ContextDB> options) : DbContext(options)
     public DbSet<LikeEntity> Likes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
+    { 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ContextDB).Assembly);
         base.OnModelCreating(modelBuilder);
 

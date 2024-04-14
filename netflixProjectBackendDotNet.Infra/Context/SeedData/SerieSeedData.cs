@@ -14,7 +14,7 @@ internal static class SerieSeedData
             Featured = true,
             CategoryId = 1,
             ThumbnailUrl = "/serie/prisonbreak.jpg",
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
         },
         new SerieEntity
         {
@@ -24,7 +24,7 @@ internal static class SerieSeedData
             Featured = true,
             CategoryId = 1,
             ThumbnailUrl = "/serie/breakingbad.jpg",
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
         },
         new SerieEntity
         {
@@ -34,7 +34,7 @@ internal static class SerieSeedData
             Featured = true,
             CategoryId = 6,
             ThumbnailUrl = "/serie/theboys.jpg",
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
         },
         new SerieEntity
         {
@@ -44,7 +44,7 @@ internal static class SerieSeedData
             Featured = true,
             CategoryId = 3,
             ThumbnailUrl = "/serie/friends.jpg",
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
         },
         new SerieEntity
         {
@@ -54,7 +54,7 @@ internal static class SerieSeedData
             Featured = true,
             CategoryId = 3,
             ThumbnailUrl = "/serie/himym.jpg",
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
         },
         new SerieEntity
         {
@@ -64,7 +64,7 @@ internal static class SerieSeedData
             Featured = true,
             CategoryId = 5,
             ThumbnailUrl = "/serie/got.jpg",
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
         },
         new SerieEntity
         {
@@ -74,7 +74,7 @@ internal static class SerieSeedData
             Featured = true,
             CategoryId = 5,
             ThumbnailUrl = "/serie/hotd.jpg",
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
         },
         new SerieEntity
         {
@@ -84,7 +84,7 @@ internal static class SerieSeedData
             Featured = true,
             CategoryId = 6,
             ThumbnailUrl = "/serie/tlou.jpg",
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
         },
         new SerieEntity
         {
@@ -94,7 +94,7 @@ internal static class SerieSeedData
             Featured = true,
             CategoryId = 4,
             ThumbnailUrl = "/serie/vikings.jpg",
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
         }
     };
 }

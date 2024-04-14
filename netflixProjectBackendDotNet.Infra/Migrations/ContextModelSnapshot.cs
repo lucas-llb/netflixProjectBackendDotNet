@@ -235,7 +235,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2445),
+                            CreatedAt = new DateTime(2024, 4, 14, 14, 4, 36, 512, DateTimeKind.Utc).AddTicks(9171),
                             Featured = true,
                             Name = "Prison Break",
                             Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -245,7 +245,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2553),
+                            CreatedAt = new DateTime(2024, 4, 14, 14, 4, 36, 512, DateTimeKind.Utc).AddTicks(9283),
                             Featured = true,
                             Name = "Breaking Bad",
                             Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -255,7 +255,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         {
                             Id = 3,
                             CategoryId = 6,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2555),
+                            CreatedAt = new DateTime(2024, 4, 14, 14, 4, 36, 512, DateTimeKind.Utc).AddTicks(9285),
                             Featured = true,
                             Name = "The Boys",
                             Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -265,7 +265,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         {
                             Id = 4,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2557),
+                            CreatedAt = new DateTime(2024, 4, 14, 14, 4, 36, 512, DateTimeKind.Utc).AddTicks(9286),
                             Featured = true,
                             Name = "Friends",
                             Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -275,7 +275,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         {
                             Id = 5,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2558),
+                            CreatedAt = new DateTime(2024, 4, 14, 14, 4, 36, 512, DateTimeKind.Utc).AddTicks(9287),
                             Featured = true,
                             Name = "How I Met Your Mother",
                             Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -285,7 +285,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         {
                             Id = 6,
                             CategoryId = 5,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2573),
+                            CreatedAt = new DateTime(2024, 4, 14, 14, 4, 36, 512, DateTimeKind.Utc).AddTicks(9291),
                             Featured = true,
                             Name = "Game of Thrones",
                             Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -295,7 +295,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         {
                             Id = 7,
                             CategoryId = 5,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2610),
+                            CreatedAt = new DateTime(2024, 4, 14, 14, 4, 36, 512, DateTimeKind.Utc).AddTicks(9292),
                             Featured = true,
                             Name = "House of the Dragon",
                             Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -305,7 +305,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         {
                             Id = 8,
                             CategoryId = 6,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2611),
+                            CreatedAt = new DateTime(2024, 4, 14, 14, 4, 36, 512, DateTimeKind.Utc).AddTicks(9293),
                             Featured = true,
                             Name = "The Last of Us",
                             Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -315,7 +315,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         {
                             Id = 9,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 595, DateTimeKind.Local).AddTicks(2612),
+                            CreatedAt = new DateTime(2024, 4, 14, 14, 4, 36, 512, DateTimeKind.Utc).AddTicks(9294),
                             Featured = true,
                             Name = "Vikings",
                             Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -379,12 +379,12 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         new
                         {
                             Id = 1,
-                            Birth = new DateTime(1991, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedAt = new DateTime(2024, 4, 14, 10, 58, 39, 594, DateTimeKind.Local).AddTicks(814),
+                            Birth = new DateTime(1991, 1, 1, 2, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2024, 4, 14, 11, 4, 36, 512, DateTimeKind.Local).AddTicks(2575),
                             Email = "admin@email.com",
                             FirstName = "Admin",
                             LastName = "User",
-                            Password = "$2a$12$g.gxAX9aV7aH8wYeUpowpO/ZJrmeePqoN7Cs7Scgyu0GIGKwluYty",
+                            Password = "$2a$12$ojQ8ZUs9jZi.GmXGphkUmOgvZxwuhyfYRGoaJS84phXxqr2GlfQ7C",
                             Phone = "(31) 99999-9999",
                             Role = 0
                         });

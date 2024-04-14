@@ -13,7 +13,7 @@ internal static class UserSeedData
             FirstName = "Admin",
             LastName = "User",
             Phone = "(31) 99999-9999",
-            Birth = DateTime.Parse("01-01-1991"),
+            Birth = DateTime.Parse("01-01-1991").ToUniversalTime(),
             Email = "admin@email.com",
             Role = Domain.Constants.RoleEnum.Admin,
             Password = BC.HashPassword("123456", 12),
