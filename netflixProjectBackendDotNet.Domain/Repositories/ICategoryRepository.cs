@@ -7,4 +7,6 @@ public interface ICategoryRepository
 {
     Task<IEnumerable<CategoryEntity>> GetPaginatedAsync(PaginatedFilter filter);
     Task<CategoryEntity?> GetById(int id);
+    Task<CategoryEntity> CreateAsync(CategoryEntity category);
+    Task<bool> DeleteAsync(int id);
 }

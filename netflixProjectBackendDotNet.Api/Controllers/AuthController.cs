@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using netflixProjectBackendDotNet.Api.Models.Request;
+using netflixProjectBackendDotNet.Api.Models.Responses;
 using netflixProjectBackendDotNet.Domain.Repositories;
+using netflixProjectBackendDotNet.Domain.Services;
 
 namespace netflixProjectBackendDotNet.Api.Controllers;
 [ApiController]
@@ -8,10 +10,12 @@ namespace netflixProjectBackendDotNet.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IUserRepository _userRepository;
+    private readonly IAuthService _authService;
 
-    public AuthController(IUserRepository userRepository)
+    public AuthController(IUserRepository userRepository, IAuthService authService)
     {
         _userRepository = userRepository;
+        _authService = authService;
     }
 
     [HttpPost("register")]
@@ -22,6 +26,16 @@ public class AuthController : ControllerBase
         return result is null ?
             BadRequest("User already exists") :
             Ok(result);
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> LoginAsync([FromBody] LoginRequest request)
+    {
+        var token = await _authService.LoginAsync(request.Email, request.Password);
+
+        return string.IsNullOrEmpty(token) ?
+            BadRequest("Email or password is incorrect") :
+            Ok(new LoginResponse(token));
     }
 
 }

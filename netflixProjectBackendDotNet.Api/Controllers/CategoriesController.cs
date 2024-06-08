@@ -29,4 +29,20 @@ public class CategoriesController : ControllerBase
             BadRequest("Category not found") :
             Ok(result);
     }
+
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateAsync([FromBody] CreateCategoryRequest request)
+    {
+        var result = await _categoryRepository.CreateAsync(request.Create());
+        return Ok(result);
+    }
+
+    [HttpDelete("delete")]
+    public async Task<IActionResult> DeleteAsync([FromQuery] int id)
+    {
+        var deleted = await _categoryRepository.DeleteAsync(id);
+        return deleted ?
+            Ok() :
+            BadRequest("Category not found");
+    }
 }
