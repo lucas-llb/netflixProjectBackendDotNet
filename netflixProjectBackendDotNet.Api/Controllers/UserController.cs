@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using netflixProjectBackendDotNet.Api.Extensions;
 using netflixProjectBackendDotNet.Api.Models.Request.User;
 using netflixProjectBackendDotNet.Api.Models.Responses.User;
 using netflixProjectBackendDotNet.Domain.Repositories;
@@ -28,7 +29,7 @@ public class UserController : ControllerBase
             FirstName = HttpContext.User.FindFirstValue(ClaimTypes.Name),
             LastName = HttpContext.User.FindFirstValue(ClaimTypes.Surname),
             Phone = HttpContext.User.FindFirstValue(ClaimTypes.MobilePhone),
-            Id = int.Parse(HttpContext.User.FindFirstValue(ClaimTypes.Sid)),
+            Id = HttpContext.GetUserId().Value,
         };
 
         return Ok(user);
@@ -38,9 +39,14 @@ public class UserController : ControllerBase
     [Authorize]
     public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserRequest request)
     {
-        var userId = int.Parse(HttpContext.User.FindFirstValue(ClaimTypes.Sid));
+        var userId = HttpContext.GetUserId();
 
-        var result = await _userRepository.UpdateAsync(request.ToUserEntity(userId));
+        if (userId is null)
+        {
+            return BadRequest("UserNotFound");
+        }
+
+        var result = await _userRepository.UpdateAsync(request.ToUserEntity(userId.Value));
 
         return result is null ?
             BadRequest("User not found") :
@@ -51,13 +57,18 @@ public class UserController : ControllerBase
     [Authorize]
     public async Task<IActionResult> UpdatePasswordAsync([FromBody] UpdatePasswordRequest request)
     {
-        var userId = int.Parse(HttpContext.User.FindFirstValue(ClaimTypes.Sid));
+        var userId = HttpContext.GetUserId();
 
-        var passwordMatch = await _userRepository.CheckPasswordAsync(userId, request.CurrentPassword);
+        if (userId is null)
+        {
+            return BadRequest("UserNotFound");
+        }
+
+        var passwordMatch = await _userRepository.CheckPasswordAsync(userId.Value, request.CurrentPassword);
 
         if (passwordMatch)
         {
-            var updated = await _userRepository.UpdatePasswordAsync(userId, request.NewPassword);
+            var updated = await _userRepository.UpdatePasswordAsync(userId.Value, request.NewPassword);
 
             return updated is null ?
                 BadRequest("Cannot update user password") :
