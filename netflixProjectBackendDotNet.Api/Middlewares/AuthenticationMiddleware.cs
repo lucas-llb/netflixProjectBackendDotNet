@@ -36,7 +36,6 @@ public class AuthenticationMiddleware
                     new Claim(ClaimTypes.Surname, user.LastName),
                     new Claim(ClaimTypes.DateOfBirth, user.Birth.ToString()),
                     new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                    new Claim("password", user.Password),
                 };
 
                 var identity = new ClaimsIdentity(claims);

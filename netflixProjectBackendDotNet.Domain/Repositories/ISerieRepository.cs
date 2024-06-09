@@ -9,4 +9,6 @@ public interface ISerieRepository
     Task<IEnumerable<SerieEntity?>> GetRandomFeaturedSeriesAsync();
     Task<SerieEntity?> GetByIdWithEpisodesAsync(int id);
     Task<IEnumerable<SerieEntity>> FindByNameAsync(string name, PaginatedFilter filter);
+    Task<SerieEntity> CreateAsync(SerieEntity entity);
+    Task<SerieEntity?> UpdateAsync(SerieEntity serie);
 }

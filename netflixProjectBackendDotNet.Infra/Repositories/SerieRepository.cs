@@ -59,4 +59,35 @@ internal class SerieRepository : ISerieRepository
 
         return series;
     }
+
+    public async Task<SerieEntity> CreateAsync(SerieEntity entity)
+    {
+        var serie = await _dbSet.AddAsync(entity);
+
+        await _context.SaveChangesAsync();
+
+        return serie.Entity;
+    }
+
+    public async Task<SerieEntity?> UpdateAsync(SerieEntity serie)
+    {
+        var actualSerie = await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == serie.Id);
+
+        if (actualSerie != null)
+        {
+            actualSerie.Featured = serie.Featured;
+            actualSerie.Synopsis = serie.Synopsis;
+            actualSerie.ThumbnailUrl = serie.ThumbnailUrl;
+            actualSerie.Name = serie.Name;
+            actualSerie.UpdatedAt = DateTime.Now;
+            actualSerie.CategoryId = serie.CategoryId;
+
+            var updated = _dbSet.Update(actualSerie);
+            await _context.SaveChangesAsync();
+
+            return updated.Entity;
+        }
+
+        return null;
+    }
 }
