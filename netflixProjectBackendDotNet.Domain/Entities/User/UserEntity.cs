@@ -1,4 +1,5 @@
 ﻿using netflixProjectBackendDotNet.Domain.Constants;
+using netflixProjectBackendDotNet.Domain.Entities.WatchTime;
 
 namespace netflixProjectBackendDotNet.Domain.Entities.User;
 
@@ -14,4 +15,5 @@ public class UserEntity
     public DateTime Birth { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
+    public virtual IEnumerable<WatchTimeEntity> WatchTimes { get; set; }
 }

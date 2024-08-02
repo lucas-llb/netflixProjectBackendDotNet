@@ -11,4 +11,5 @@ public interface ISerieRepository
     Task<IEnumerable<SerieEntity>> FindByNameAsync(string name, PaginatedFilter filter);
     Task<SerieEntity> CreateAsync(SerieEntity entity);
     Task<SerieEntity?> UpdateAsync(SerieEntity serie);
+    Task<IEnumerable<SerieEntity>> GetTopTenByLikesAsync();
 }

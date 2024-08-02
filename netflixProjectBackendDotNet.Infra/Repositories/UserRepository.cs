@@ -93,7 +93,17 @@ internal class UserRepository : IUserRepository
 
         return entryEntity.Entity;
     }
+
+    public async Task<UserEntity?> GetUserWithWatchListAsync(int id)
+    {
+        return await _dbSet.AsNoTracking()
+            .Include(x => x.WatchTimes)
+            .ThenInclude(x => x.Episode)
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
+
     private async Task<UserEntity?> GetByIdAsync(int id) => await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+
     private static bool CheckPassword(string currentPassword, string password)
     {
         var passwordMatch = BC.Verify(currentPassword, password);

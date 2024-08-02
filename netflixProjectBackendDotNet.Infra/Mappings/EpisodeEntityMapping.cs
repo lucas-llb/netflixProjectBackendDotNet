@@ -22,5 +22,7 @@ public class EpisodeEntityMapping : IEntityTypeConfiguration<EpisodeEntity>
         builder.Property(x => x.SecondsLong).IsRequired();
         builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValueSql("CURRENT_TIMESTAMP");
         builder.Property(x => x.UpdateAt).IsRequired(false).ValueGeneratedOnUpdate().HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+        builder.HasOne(x => x.Serie).WithMany(x => x.Episodes).HasForeignKey(x=> x.SerieId).IsRequired();
     }
 }

@@ -3,6 +3,7 @@ using netflixProjectBackendDotNet.Domain.Entities.Serie;
 using netflixProjectBackendDotNet.Domain.Filters;
 using netflixProjectBackendDotNet.Domain.Repositories;
 using netflixProjectBackendDotNet.Infra.Context;
+using System;
 
 namespace netflixProjectBackendDotNet.Infra.Repositories;
 
@@ -80,7 +81,6 @@ internal class SerieRepository : ISerieRepository
             actualSerie.ThumbnailUrl = serie.ThumbnailUrl;
             actualSerie.Name = serie.Name;
             actualSerie.UpdatedAt = DateTime.Now;
-            actualSerie.CategoryId = serie.CategoryId;
 
             var updated = _dbSet.Update(actualSerie);
             await _context.SaveChangesAsync();
@@ -89,5 +89,15 @@ internal class SerieRepository : ISerieRepository
         }
 
         return null;
+    }
+
+    public async Task<IEnumerable<SerieEntity>> GetTopTenByLikesAsync()
+    {
+        return _dbSet
+                    .AsNoTracking()
+                    .Include(s => s.Likes)
+                    .OrderByDescending(s => s.Likes.Count())
+                    .Take(10)
+                    .ToList();
     }
 }

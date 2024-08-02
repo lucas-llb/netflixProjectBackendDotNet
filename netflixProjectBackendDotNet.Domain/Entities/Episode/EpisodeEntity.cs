@@ -1,4 +1,5 @@
 ﻿using netflixProjectBackendDotNet.Domain.Entities.Serie;
+using netflixProjectBackendDotNet.Domain.Entities.WatchTime;
 
 namespace netflixProjectBackendDotNet.Domain.Entities.Episode;
 
@@ -15,4 +16,6 @@ public class EpisodeEntity
     public DateTime? UpdateAt { get; set; }
     public int SerieId { get; set; }
     public SerieEntity Serie { get; set; }
+
+    public WatchTimeEntity WatchTime { get; set; }
 }

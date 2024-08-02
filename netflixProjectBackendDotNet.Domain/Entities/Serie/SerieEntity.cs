@@ -1,5 +1,6 @@
 ﻿using netflixProjectBackendDotNet.Domain.Entities.Category;
 using netflixProjectBackendDotNet.Domain.Entities.Episode;
+using netflixProjectBackendDotNet.Domain.Entities.Like;
 
 namespace netflixProjectBackendDotNet.Domain.Entities.Serie;
 
@@ -15,4 +16,5 @@ public class SerieEntity
     public int CategoryId { get; set; }
     public CategoryEntity Category { get; set; }
     public virtual IEnumerable<EpisodeEntity> Episodes { get; set;}
+    public virtual IEnumerable<LikeEntity> Likes { get; set;}
 }

@@ -10,4 +10,5 @@ public interface IUserRepository
     Task<UserEntity?> UpdateAsync(UserEntity newUser);
     Task<UserEntity?> UpdatePasswordAsync(int id, string password);
     Task<bool> CheckPasswordAsync(int id, string password);
+    Task<UserEntity?> GetUserWithWatchListAsync(int id);
 }

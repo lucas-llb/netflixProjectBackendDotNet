@@ -27,4 +27,8 @@
     <ProjectReference Include="..\netflixProjectBackendDotNet.IoC\netflixProjectBackendDotNet.IoC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

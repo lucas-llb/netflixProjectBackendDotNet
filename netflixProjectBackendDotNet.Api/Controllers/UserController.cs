@@ -79,4 +79,13 @@ public class UserController : ControllerBase
 
     }
 
+    [HttpGet("current/watching")]
+    [Authorize]
+    public async Task<IActionResult> GetWatchingList()
+    {
+        var userId = HttpContext.GetUserId();
+
+        return Ok(await _userRepository.GetUserWithWatchListAsync(userId.Value));
+    }
+
 }
