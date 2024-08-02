@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace netflixProjectBackendDotNet.Domain.Services.Impl;
 
-public class AuthService
+public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
 

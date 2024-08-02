@@ -13,8 +13,8 @@ public static class InfraExtension
     public static IServiceCollection AddInfra(this IServiceCollection services, IConfiguration configuration) =>
         services
         .AddContext(configuration)
-        .RunMigrations()
-        .AddRepositories();
+        .AddRepositories()
+        .RunMigrations();
 
     private static IServiceCollection AddContext(this IServiceCollection services, IConfiguration configuration)
     {

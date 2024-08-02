@@ -36,7 +36,7 @@ public class SeriesController(ISerieRepository serieRepository, IWebHostEnvironm
             BadRequest("An error occurred during saving a serie");
     }
 
-    [HttpPut("{serieId: int}")]
+    [HttpPut("{serieId:int}")]
     [Authorize]
     public async Task<IActionResult> UpdateAsync([FromRoute]int serieId, [FromBody] UpdateSerieRequest request, [FromForm] IFormFile image)
     {
@@ -60,7 +60,7 @@ public class SeriesController(ISerieRepository serieRepository, IWebHostEnvironm
             BadRequest("An error occurred during updating a serie");
     }
 
-    [HttpGet("show/{serieId:int}")]
+    [HttpGet("{serieId:int}")]
     [Authorize]
     public async Task<IActionResult> GetWithEpisodesAsync([FromRoute] int serieId)
     {

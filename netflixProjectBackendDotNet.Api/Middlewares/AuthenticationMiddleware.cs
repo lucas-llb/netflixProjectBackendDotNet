@@ -7,12 +7,12 @@ namespace netflixProjectBackendDotNet.Api.Middlewares;
 public class AuthenticationMiddleware
 {
     private readonly RequestDelegate _requestDelegate;
-    private readonly IUserRepository _userRepository;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public AuthenticationMiddleware(RequestDelegate requestDelegate, IUserRepository userRepository)
+    public AuthenticationMiddleware(RequestDelegate requestDelegate, IServiceScopeFactory socpeFactory)
     {
         _requestDelegate = requestDelegate;
-        _userRepository = userRepository;
+        _scopeFactory = socpeFactory;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -24,7 +24,9 @@ public class AuthenticationMiddleware
             var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
             var email = jwtToken.Claims.First(x => x.Type == JwtRegisteredClaimNames.Email).Value;
-            var user = await _userRepository.GetByEmailAsync(email);
+            using var scope = _scopeFactory.CreateScope();
+            var repository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+            var user = await repository.GetByEmailAsync(email);
             if (user is not null)
             {
                 var claims = new List<Claim>

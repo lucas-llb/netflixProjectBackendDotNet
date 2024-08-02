@@ -21,7 +21,7 @@ public class CategoriesController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("show")]
+    [HttpGet("{categoryId:int}")]
     public async Task<IActionResult> GetById([FromQuery] int categoryId)
     {
         var result = await _categoryRepository.GetById(categoryId);
