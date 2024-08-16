@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using netflixProjectBackendDotNet.Api.Models.Request;
+using netflixProjectBackendDotNet.Api.Models.Responses.Categories;
 using netflixProjectBackendDotNet.Domain.Repositories;
 
 namespace netflixProjectBackendDotNet.Api.Controllers;
@@ -18,7 +19,7 @@ public class CategoriesController : ControllerBase
     public async Task<IActionResult> GetPaginatedAsync([FromQuery] CategoriesPaginatedRequest request)
     {
         var result = await _categoryRepository.GetPaginatedAsync(request.ToFIlter());
-        return Ok(result);
+        return Ok(CategoryPaginatedResponse.From(result));
     }
 
     [HttpGet("{categoryId:int}")]

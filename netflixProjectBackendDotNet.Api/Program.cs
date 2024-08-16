@@ -30,6 +30,7 @@ internal class Program
             });
         }
         app.UseMiddleware<AuthenticationMiddleware>();
+        app.UseStaticFiles();
         app.UseHttpsRedirection();
 
         app.UseAuthorization();

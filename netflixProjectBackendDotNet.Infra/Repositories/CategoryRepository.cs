@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using netflixProjectBackendDotNet.Domain.Dtos;
 using netflixProjectBackendDotNet.Domain.Entities.Category;
 using netflixProjectBackendDotNet.Domain.Filters;
 using netflixProjectBackendDotNet.Domain.Repositories;
@@ -16,14 +17,24 @@ internal class CategoryRepository : ICategoryRepository
         _dbSet = context.Set<CategoryEntity>();
     }
 
-    public async Task<IEnumerable<CategoryEntity>> GetPaginatedAsync(PaginatedFilter filter)
+    public async Task<PaginatedDto<CategoryEntity>> GetPaginatedAsync(PaginatedFilter filter)
     {
-        return await _dbSet
+        var data = await _dbSet
             .AsNoTracking()
             .OrderBy(x => x.Position)
             .Skip(filter.Page * filter.PerPage)
             .Take(filter.PerPage)
             .ToListAsync();
+
+        var totalItems = await _dbSet.AsNoTracking().CountAsync();
+
+        return new PaginatedDto<CategoryEntity>
+        {
+            Items = data,
+            TotalItems = totalItems,
+            Page = filter.Page,
+            PerPage = filter.PerPage,
+        };
     }
 
     public async Task<CategoryEntity?> GetById(int id)

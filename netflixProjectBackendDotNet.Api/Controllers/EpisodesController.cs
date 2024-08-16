@@ -100,7 +100,7 @@ public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpiso
     [HttpGet("stream")]
     public async Task<IActionResult> StreamEpisodeToResponse([FromQuery]string videoUrl, [FromHeader]string range)
     {
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "uploads", videoUrl);
+        var filePath = Path.Combine(environment.WebRootPath, videoUrl);
         var fileInfo = new FileInfo(filePath);
 
         if (!fileInfo.Exists)
