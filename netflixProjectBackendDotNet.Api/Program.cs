@@ -17,6 +17,7 @@ internal class Program
         builder.Services.AddSwagger();
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         builder.Services.AddApiServices(builder.Configuration);
+        builder.Services.AddCors(o => o.AddPolicy("allow", b => b.AllowAnyOrigin()));
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -32,7 +33,7 @@ internal class Program
         app.UseMiddleware<AuthenticationMiddleware>();
         app.UseStaticFiles();
         app.UseHttpsRedirection();
-
+        app.UseCors("allow");
         app.UseAuthorization();
 
         app.MapControllers();

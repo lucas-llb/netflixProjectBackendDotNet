@@ -83,12 +83,11 @@ public class SeriesController(ISerieRepository serieRepository, IWebHostEnvironm
     }
 
     [HttpGet("newest")]
-    [Authorize]
     public async Task<IActionResult> GetNewestSeriesAsync()
     {
         var serie = await serieRepository.GetTopTenNewestAsync();
 
-        return serie is null ?
+        return serie is not null ?
             Ok(serie) :
             BadRequest("Series not found");
     }
