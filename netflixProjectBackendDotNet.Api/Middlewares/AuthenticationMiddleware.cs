@@ -40,7 +40,7 @@ public class AuthenticationMiddleware
                     new Claim(ClaimTypes.Sid, user.Id.ToString()),
                 };
 
-                var identity = new ClaimsIdentity(claims);
+                var identity = new ClaimsIdentity(claims, authenticationType: "bearer");
                 context.User = new ClaimsPrincipal(identity);
             }
         }

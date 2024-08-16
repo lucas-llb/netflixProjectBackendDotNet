@@ -67,7 +67,7 @@ public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpiso
             VideoUrl = path,
         });
 
-        return result is null ?
+        return result is not null ?
             Ok(result) :
             BadRequest("An error occurred during saving an episode");
     }
@@ -92,7 +92,7 @@ public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpiso
             VideoUrl = path,
         });
 
-        return result is null ?
+        return result is not null ?
             Ok(result) :
             BadRequest("An error occurred during updating an episode");
     }

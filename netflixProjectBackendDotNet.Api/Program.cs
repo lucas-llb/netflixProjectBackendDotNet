@@ -13,11 +13,11 @@ internal class Program
         builder.Services.AddControllers().AddNewtonsoftJson(op => op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddCustomAuthentication();
+        builder.Services.AddCustomAuthentication(builder.Configuration);
         builder.Services.AddSwagger();
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         builder.Services.AddApiServices(builder.Configuration);
-        builder.Services.AddCors(o => o.AddPolicy("allow", b => b.AllowAnyOrigin()));
+        builder.Services.AddCors(o => o.AddPolicy("allow", b => b.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

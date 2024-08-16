@@ -9,16 +9,16 @@ using System.Security.Claims;
 namespace netflixProjectBackendDotNet.Api.Controllers;
 [ApiController]
 [Route("/[controller]")]
-public class UserController : ControllerBase
+public class UsersController : ControllerBase
 {
     private readonly IUserRepository _userRepository;
 
-    public UserController(IUserRepository userRepository)
+    public UsersController(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
 
-    [HttpGet("show")]
+    [HttpGet("current")]
     [Authorize]
     public async Task<IActionResult> GetUserAsync()
     {

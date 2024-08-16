@@ -31,7 +31,7 @@ public class SeriesController(ISerieRepository serieRepository, IWebHostEnvironm
             ThumbnailUrl = path,
         });
 
-        return result is null ?
+        return result is not null ?
             Ok(result) :
             BadRequest("An error occurred during saving a serie");
     }
@@ -66,7 +66,7 @@ public class SeriesController(ISerieRepository serieRepository, IWebHostEnvironm
     {
         var serie = await serieRepository.GetByIdWithEpisodesAsync(serieId);
 
-        return serie is null ?
+        return serie is not null ?
             Ok(serie) :
             BadRequest("Serie not found");
     }
@@ -77,7 +77,7 @@ public class SeriesController(ISerieRepository serieRepository, IWebHostEnvironm
     {
         var serie = await serieRepository.GetRandomFeaturedSeriesAsync();
 
-        return serie is null ?
+        return serie is not null ?
             Ok(serie) :
             BadRequest("Series not found");
     }
