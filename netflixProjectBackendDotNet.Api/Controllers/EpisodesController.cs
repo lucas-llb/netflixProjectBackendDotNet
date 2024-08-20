@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using netflixProjectBackendDotNet.Api.Extensions;
 using netflixProjectBackendDotNet.Api.Models.Request.Episodes;
+using netflixProjectBackendDotNet.Api.Models.Responses.Episodes;
 using netflixProjectBackendDotNet.Domain.Entities.Episode;
 using netflixProjectBackendDotNet.Domain.Repositories;
 using System.ComponentModel.DataAnnotations;
@@ -30,6 +31,7 @@ public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpiso
     }
 
     [HttpGet("{id:int}/watchtime")]
+    [ProducesResponseType(typeof(EpisodeWatchTimeResponse), 200)]
     [Authorize]
     public async Task<IActionResult> GetWatchTimeAsync([FromRoute] int id)
     {
@@ -44,7 +46,7 @@ public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpiso
 
         return result is null ?
             BadRequest("Episode not found") :
-            Ok(result);
+            Ok(EpisodeWatchTimeResponse.ToResponse(result));
     }
 
     [HttpPost]
@@ -98,7 +100,7 @@ public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpiso
     }
 
     [HttpGet("stream")]
-    public async Task<IActionResult> StreamEpisodeToResponse([FromQuery]string videoUrl, [FromHeader]string range)
+    public async Task<IActionResult> StreamEpisodeToResponse([FromQuery] string videoUrl, [FromHeader] string range)
     {
         var filePath = Path.Combine(environment.WebRootPath, videoUrl);
         var fileInfo = new FileInfo(filePath);

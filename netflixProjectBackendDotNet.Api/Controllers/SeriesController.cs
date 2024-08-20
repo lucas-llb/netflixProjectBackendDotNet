@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using netflixProjectBackendDotNet.Api.Models.Request;
 using netflixProjectBackendDotNet.Api.Models.Request.Series;
+using netflixProjectBackendDotNet.Api.Models.Responses.Series;
 using netflixProjectBackendDotNet.Domain.Entities.Serie;
 using netflixProjectBackendDotNet.Domain.Filters;
 using netflixProjectBackendDotNet.Domain.Repositories;
@@ -61,53 +62,60 @@ public class SeriesController(ISerieRepository serieRepository, IWebHostEnvironm
     }
 
     [HttpGet("{serieId:int}")]
+    [ProducesResponseType(typeof(SerieWithEpisodeResponse), 200)]
     [Authorize]
     public async Task<IActionResult> GetWithEpisodesAsync([FromRoute] int serieId)
     {
         var serie = await serieRepository.GetByIdWithEpisodesAsync(serieId);
 
         return serie is not null ?
-            Ok(serie) :
+            Ok(SerieWithEpisodeResponse.ToResponse(serie)) :
             BadRequest("Serie not found");
     }
 
     [HttpGet("featured")]
+    [ProducesResponseType(typeof(IEnumerable<SerieFeaturedResponse>), 200)]
     [Authorize]
     public async Task<IActionResult> GetFeaturedSeriesAsync()
     {
         var serie = await serieRepository.GetRandomFeaturedSeriesAsync();
 
         return serie is not null ?
-            Ok(serie) :
+            Ok(SerieFeaturedResponse.ToResponse(serie)) :
             BadRequest("Series not found");
     }
 
     [HttpGet("newest")]
+    [ProducesResponseType(typeof(SerieNewestResponse), 200)]
+
     public async Task<IActionResult> GetNewestSeriesAsync()
     {
         var serie = await serieRepository.GetTopTenNewestAsync();
 
         return serie is not null ?
-            Ok(serie) :
+            Ok(SerieNewestResponse.ToResponse(serie)) :
             BadRequest("Series not found");
     }
 
     [HttpGet("search")]
+    [ProducesResponseType(typeof(SerieSearchResponse), 200)]
+
     [Authorize]
-    public async Task<IActionResult> GetNewestSeriesAsync([FromQuery]string name, [FromQuery]PaginatedRequest paginatedRequest)
+    public async Task<IActionResult> GetSeriesByNameAsync([FromQuery]string name, [FromQuery]PaginatedRequest paginatedRequest)
     {
         var serie = await serieRepository.FindByNameAsync(name, (PaginatedFilter)paginatedRequest);
 
-        return Ok(serie);
+        return Ok(SerieSearchResponse.ToResponse(serie));
     }
 
     [HttpGet("popular")]
+    [ProducesResponseType(typeof(SerieTopTenLikeResponse), 200)]
     [Authorize]
     public async Task<IActionResult> GetTopTenSeriesByLikeAsync()
     {
         var serie = await serieRepository.GetTopTenByLikesAsync();
 
-        return Ok(serie);
+        return Ok(SerieTopTenLikeResponse.ToResponse(serie));
     }
 
     private async Task<string> SaveImageAsync(SerieRequestBase request, IFormFile image)

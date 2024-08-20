@@ -16,6 +16,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpGet("index")]
+    [ProducesResponseType(typeof(CategoryPaginatedResponse), 200)]
     public async Task<IActionResult> GetPaginatedAsync([FromQuery] CategoriesPaginatedRequest request)
     {
         var result = await _categoryRepository.GetPaginatedAsync(request.ToFIlter());
@@ -23,12 +24,13 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpGet("{categoryId:int}")]
+    [ProducesResponseType(typeof(CategoryByIdWIthSeriesResponse), 200)]
     public async Task<IActionResult> GetById([FromQuery] int categoryId)
     {
         var result = await _categoryRepository.GetById(categoryId);
         return result is null ?
             BadRequest("Category not found") :
-            Ok(result);
+            Ok(CategoryByIdWIthSeriesResponse.ToResponse(result));
     }
 
     [HttpPost("create")]
