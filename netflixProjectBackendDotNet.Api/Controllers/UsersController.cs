@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using netflixProjectBackendDotNet.Api.Extensions;
 using netflixProjectBackendDotNet.Api.Models.Request.User;
+using netflixProjectBackendDotNet.Api.Models.Responses.Episodes;
 using netflixProjectBackendDotNet.Api.Models.Responses.User;
 using netflixProjectBackendDotNet.Domain.Repositories;
 using System.Security.Claims;
@@ -19,6 +20,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("current")]
+    [ProducesResponseType(typeof(UserResponse), 200)]
     [Authorize]
     public async Task<IActionResult> GetUserAsync()
     {
@@ -36,6 +38,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("current")]
+    [ProducesResponseType(typeof(UserResponse), 200)]
     [Authorize]
     public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserRequest request)
     {
@@ -80,12 +83,15 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("current/watching")]
+    [ProducesResponseType(typeof(EpisodeWithWatchListResponse), 200)]
     [Authorize]
     public async Task<IActionResult> GetWatchingList()
     {
         var userId = HttpContext.GetUserId();
 
-        return Ok(await _userRepository.GetUserWithWatchListAsync(userId.Value));
+        var episodes = await _userRepository.GetUserWithWatchListAsync(userId.Value);
+
+        return Ok(EpisodeWithWatchListResponse.ToResponse(episodes));
     }
 
 }

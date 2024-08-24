@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using netflixProjectBackendDotNet.Domain.Entities.Episode;
 using netflixProjectBackendDotNet.Domain.Entities.User;
+using netflixProjectBackendDotNet.Domain.Entities.WatchTime;
 using netflixProjectBackendDotNet.Domain.Repositories;
 using netflixProjectBackendDotNet.Infra.Context;
 using BC = BCrypt.Net.BCrypt;
@@ -94,12 +96,20 @@ internal class UserRepository : IUserRepository
         return entryEntity.Entity;
     }
 
-    public async Task<UserEntity?> GetUserWithWatchListAsync(int id)
+    public async Task<IEnumerable<EpisodeEntity>?> GetUserWithWatchListAsync(int id)
     {
-        return await _dbSet.AsNoTracking()
+        var data =  await _dbSet.AsNoTracking()
             .Include(x => x.WatchTimes)
-            .ThenInclude(x => x.Episode)
+                .ThenInclude(x => x.Episode)
+                .ThenInclude(x => x.Serie)
+            .Include(x => x.WatchTimes)
+                .ThenInclude(x => x.Episode)
+                .ThenInclude(x => x.WatchTime)
             .FirstOrDefaultAsync(x => x.Id == id);
+
+        var episodes = data!.WatchTimes.Select(x => x.Episode);
+
+        return FilterLastEpisodesBySerie(episodes.OrderByDescending(x => x.WatchTime.UpdatedAt));
     }
 
     private async Task<UserEntity?> GetByIdAsync(int id) => await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
@@ -114,5 +124,32 @@ internal class UserRepository : IUserRepository
         }
 
         return false;
+    }
+
+    public IEnumerable<EpisodeEntity> FilterLastEpisodesBySerie(IEnumerable<EpisodeEntity>? episodes)
+    {
+        var seriesOnList = new HashSet<int>();
+        var lastEpisodes = new List<EpisodeEntity>();
+
+        foreach (var episode in episodes)
+        {
+            if (!seriesOnList.Contains(episode.SerieId))
+            {
+                seriesOnList.Add(episode.SerieId);
+                lastEpisodes.Add(episode);
+                continue;
+            }
+
+            var episodeFromSameSerie = lastEpisodes.FirstOrDefault(ep => ep.SerieId == episode.SerieId);
+            if (episodeFromSameSerie != null && episodeFromSameSerie.Order > episode.Order)
+            {
+                continue;
+            }
+
+            lastEpisodes = lastEpisodes.Where(ep => ep.SerieId != episode.SerieId).ToList();
+            lastEpisodes.Add(episode);
+        }
+
+        return lastEpisodes;
     }
 }

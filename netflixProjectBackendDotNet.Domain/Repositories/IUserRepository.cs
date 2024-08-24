@@ -1,4 +1,5 @@
-﻿using netflixProjectBackendDotNet.Domain.Entities.User;
+﻿using netflixProjectBackendDotNet.Domain.Entities.Episode;
+using netflixProjectBackendDotNet.Domain.Entities.User;
 
 namespace netflixProjectBackendDotNet.Domain.Repositories;
 
@@ -10,5 +11,5 @@ public interface IUserRepository
     Task<UserEntity?> UpdateAsync(UserEntity newUser);
     Task<UserEntity?> UpdatePasswordAsync(int id, string password);
     Task<bool> CheckPasswordAsync(int id, string password);
-    Task<UserEntity?> GetUserWithWatchListAsync(int id);
+    Task<IEnumerable<EpisodeEntity>> GetUserWithWatchListAsync(int id);
 }
