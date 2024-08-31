@@ -9,10 +9,12 @@ internal class SerieWithEpisodeResponse
     public string Name { get; set; }
     public string Synopsis { get; set; }
     public string ThumbnailUrl { get; set; }
+    public bool Favorited {  get; set; }
+    public bool Liked { get; set; }
 
     public IEnumerable<EpisodeSerieResponse> Episodes { get; set; }
 
-    public static SerieWithEpisodeResponse ToResponse(SerieEntity serie)
+    public static SerieWithEpisodeResponse ToResponse(SerieEntity serie, bool favorited, bool liked)
     {
         if (serie == null)
         {
@@ -25,6 +27,8 @@ internal class SerieWithEpisodeResponse
             Name = serie.Name,
             Synopsis = serie.Synopsis,
             ThumbnailUrl = serie.ThumbnailUrl,
+            Liked = liked,
+            Favorited = favorited,
             Episodes = serie.Episodes.Select(x =>
             {
                 return new EpisodeSerieResponse

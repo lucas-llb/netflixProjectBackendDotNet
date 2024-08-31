@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using netflixProjectBackendDotNet.Api.Extensions;
 using netflixProjectBackendDotNet.Api.Models.Request;
 using netflixProjectBackendDotNet.Api.Models.Request.Series;
 using netflixProjectBackendDotNet.Api.Models.Responses.Series;
@@ -11,7 +12,7 @@ using System.ComponentModel.DataAnnotations;
 namespace netflixProjectBackendDotNet.Api.Controllers;
 [ApiController]
 [Route("/[controller]")]
-public class SeriesController(ISerieRepository serieRepository, IWebHostEnvironment environment) : ControllerBase
+public class SeriesController(ISerieRepository serieRepository, IWebHostEnvironment environment, IFavoriteRepository favoriteRepository, ILikeRepository likeRepository) : ControllerBase
 {
     [HttpPost]
     [Authorize]
@@ -66,10 +67,14 @@ public class SeriesController(ISerieRepository serieRepository, IWebHostEnvironm
     [Authorize]
     public async Task<IActionResult> GetWithEpisodesAsync([FromRoute] int serieId)
     {
+        var userId = HttpContext.GetUserId();
         var serie = await serieRepository.GetByIdWithEpisodesAsync(serieId);
+        var liked = await likeRepository.IsLikedAsync(userId!.Value, serieId);
+        var favorited = await favoriteRepository.IsFavoriteAsync(userId!.Value, serieId);
+
 
         return serie is not null ?
-            Ok(SerieWithEpisodeResponse.ToResponse(serie)) :
+            Ok(SerieWithEpisodeResponse.ToResponse(serie, favorited, liked)) :
             BadRequest("Serie not found");
     }
 

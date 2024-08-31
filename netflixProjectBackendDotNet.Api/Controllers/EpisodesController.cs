@@ -12,6 +12,7 @@ namespace netflixProjectBackendDotNet.Api.Controllers;
 [Route("/[controller]")]
 public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpisodeRepository episodeRepository, IWebHostEnvironment environment) : ControllerBase
 {
+    private IWebHostEnvironment _env = environment;
     [HttpPost("{id:int}/watchtime")]
     [Authorize]
     public async Task<IActionResult> SetWatchTimeAsync([FromRoute] int id, [FromBody] int seconds)
@@ -44,9 +45,7 @@ public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpiso
 
         var result = await watchTimeRepository.GetWatchTimeAsync(userId.Value, id);
 
-        return result is null ?
-            BadRequest("Episode not found") :
-            Ok(EpisodeWatchTimeResponse.ToResponse(result));
+        return Ok(EpisodeWatchTimeResponse.ToResponse(result));
     }
 
     [HttpPost]
@@ -102,7 +101,8 @@ public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpiso
     [HttpGet("stream")]
     public async Task<IActionResult> StreamEpisodeToResponse([FromQuery] string videoUrl, [FromHeader] string range)
     {
-        var filePath = Path.Combine(environment.WebRootPath, videoUrl);
+        var webRootPath = _env.WebRootPath.Replace("\\", "/");
+        var filePath = webRootPath+ videoUrl;
         var fileInfo = new FileInfo(filePath);
 
         if (!fileInfo.Exists)
@@ -117,7 +117,8 @@ public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpiso
         {
             var rangeParts = range.Replace("bytes=", "").Split('-');
             var start = long.Parse(rangeParts[0]);
-            var end = rangeParts.Length > 1 ? long.Parse(rangeParts[1]) : fileLength - 1;
+
+            var end = !string.IsNullOrWhiteSpace(rangeParts[1]) ? long.Parse(rangeParts[1]) : fileLength - 1;
             var chunkSize = end - start + 1;
 
             Response.Headers.Add("Content-Range", $"bytes {start}-{end}/{fileLength}");
@@ -139,7 +140,7 @@ public class EpisodesController(IWatchTimeRepository watchTimeRepository, IEpiso
 
     private async Task<string> SaveVideoAsync(EpisodeRequestBase request, IFormFile video)
     {
-        var path = Path.Combine(environment.WebRootPath, "videos/", $"serie-{request.SerieId}/", video.FileName);
+        var path = Path.Combine(_env.WebRootPath, "videos/", $"serie-{request.SerieId}/", video.FileName);
 
         using (FileStream stream = new FileStream(path, FileMode.Create))
         {

@@ -53,6 +53,7 @@ internal class FavoriteRepository : IFavoriteRepository
     {
         var favorites = await _dbSet.AsNoTracking()
             .Where(x => x.UserId == userId)
+            .Include(x=> x.Serie)
             .ToListAsync();
 
         return favorites;

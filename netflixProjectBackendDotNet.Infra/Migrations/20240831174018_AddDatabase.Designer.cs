@@ -12,8 +12,8 @@ using netflixProjectBackendDotNet.Infra.Context;
 namespace netflixProjectBackendDotNet.Infra.Migrations
 {
     [DbContext(typeof(ContextDB))]
-    [Migration("20240414125919_AddFavoritesTable")]
-    partial class AddFavoritesTable
+    [Migration("20240831174018_AddDatabase")]
+    partial class AddDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,44 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Action",
+                            Position = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Documentary",
+                            Position = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Comedy",
+                            Position = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Drama",
+                            Position = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Fantasy",
+                            Position = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Adventure",
+                            Position = 6
+                        });
                 });
 
             modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.Episode.EpisodeEntity", b =>
@@ -56,7 +94,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Name")
@@ -85,7 +123,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
 
                     b.Property<DateTime?>("UpdateAt")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("VideoUrl")
@@ -110,12 +148,12 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("UserId", "SerieId");
@@ -123,6 +161,36 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                     b.HasIndex("SerieId");
 
                     b.ToTable("Favorites", (string)null);
+                });
+
+            modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.Like.LikeEntity", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SerieId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<int?>("SerieEntityId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.HasKey("UserId", "SerieId");
+
+                    b.HasIndex("SerieEntityId");
+
+                    b.HasIndex("SerieId");
+
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.Serie.SerieEntity", b =>
@@ -138,7 +206,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<bool>("Featured")
@@ -159,9 +227,9 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("character varying(70)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -169,6 +237,98 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Series", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2024, 8, 31, 17, 40, 18, 111, DateTimeKind.Utc).AddTicks(567),
+                            Featured = true,
+                            Name = "Prison Break",
+                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            ThumbnailUrl = "/serie/prisonbreak.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2024, 8, 31, 17, 40, 18, 111, DateTimeKind.Utc).AddTicks(698),
+                            Featured = true,
+                            Name = "Breaking Bad",
+                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            ThumbnailUrl = "/serie/breakingbad.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 6,
+                            CreatedAt = new DateTime(2024, 8, 31, 17, 40, 18, 111, DateTimeKind.Utc).AddTicks(707),
+                            Featured = true,
+                            Name = "The Boys",
+                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            ThumbnailUrl = "/serie/theboys.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2024, 8, 31, 17, 40, 18, 111, DateTimeKind.Utc).AddTicks(708),
+                            Featured = true,
+                            Name = "Friends",
+                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            ThumbnailUrl = "/serie/friends.jpg"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2024, 8, 31, 17, 40, 18, 111, DateTimeKind.Utc).AddTicks(710),
+                            Featured = true,
+                            Name = "How I Met Your Mother",
+                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            ThumbnailUrl = "/serie/himym.jpg"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 5,
+                            CreatedAt = new DateTime(2024, 8, 31, 17, 40, 18, 111, DateTimeKind.Utc).AddTicks(726),
+                            Featured = true,
+                            Name = "Game of Thrones",
+                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            ThumbnailUrl = "/serie/got.jpg"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 5,
+                            CreatedAt = new DateTime(2024, 8, 31, 17, 40, 18, 111, DateTimeKind.Utc).AddTicks(728),
+                            Featured = true,
+                            Name = "House of the Dragon",
+                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            ThumbnailUrl = "/serie/hotd.jpg"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 6,
+                            CreatedAt = new DateTime(2024, 8, 31, 17, 40, 18, 111, DateTimeKind.Utc).AddTicks(729),
+                            Featured = true,
+                            Name = "The Last of Us",
+                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            ThumbnailUrl = "/serie/tlou.jpg"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2024, 8, 31, 17, 40, 18, 111, DateTimeKind.Utc).AddTicks(731),
+                            Featured = true,
+                            Name = "Vikings",
+                            Synopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            ThumbnailUrl = "/serie/vikings.jpg"
+                        });
                 });
 
             modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.User.UserEntity", b =>
@@ -180,11 +340,11 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Birth")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Email")
@@ -216,12 +376,26 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Birth = new DateTime(1991, 1, 1, 2, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2024, 8, 31, 17, 40, 18, 110, DateTimeKind.Utc).AddTicks(4606),
+                            Email = "admin@email.com",
+                            FirstName = "Admin",
+                            LastName = "User",
+                            Password = "$2a$12$HlcWfVkbJLTIn0t/WYCpIOLPM71gaXWqKMesftq8ixYezPL50MeyK",
+                            Phone = "(31) 99999-9999",
+                            Role = 0
+                        });
                 });
 
             modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.WatchTime.WatchTimeEntity", b =>
@@ -234,7 +408,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int>("SecondsLong")
@@ -242,7 +416,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("UserId", "EpisodeId");
@@ -255,7 +429,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
             modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.Episode.EpisodeEntity", b =>
                 {
                     b.HasOne("netflixProjectBackendDotNet.Domain.Entities.Serie.SerieEntity", "Serie")
-                        .WithMany()
+                        .WithMany("Episodes")
                         .HasForeignKey("SerieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -282,10 +456,33 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.Like.LikeEntity", b =>
+                {
+                    b.HasOne("netflixProjectBackendDotNet.Domain.Entities.Serie.SerieEntity", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("SerieEntityId");
+
+                    b.HasOne("netflixProjectBackendDotNet.Domain.Entities.Serie.SerieEntity", "Serie")
+                        .WithMany()
+                        .HasForeignKey("SerieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("netflixProjectBackendDotNet.Domain.Entities.User.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Serie");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.Serie.SerieEntity", b =>
                 {
                     b.HasOne("netflixProjectBackendDotNet.Domain.Entities.Category.CategoryEntity", "Category")
-                        .WithMany()
+                        .WithMany("Series")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -302,7 +499,7 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                         .IsRequired();
 
                     b.HasOne("netflixProjectBackendDotNet.Domain.Entities.User.UserEntity", "User")
-                        .WithMany()
+                        .WithMany("WatchTimes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -310,6 +507,23 @@ namespace netflixProjectBackendDotNet.Infra.Migrations
                     b.Navigation("Episode");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.Category.CategoryEntity", b =>
+                {
+                    b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.Serie.SerieEntity", b =>
+                {
+                    b.Navigation("Episodes");
+
+                    b.Navigation("Likes");
+                });
+
+            modelBuilder.Entity("netflixProjectBackendDotNet.Domain.Entities.User.UserEntity", b =>
+                {
+                    b.Navigation("WatchTimes");
                 });
 #pragma warning restore 612, 618
         }

@@ -28,7 +28,7 @@ public static class InfraExtension
     {
         using var scope = services.BuildServiceProvider().CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<ContextDB>();
-        context.Database.Migrate();
+        //context.Database.Migrate();
         return services;
     }
 

@@ -13,7 +13,7 @@ public class WatchTimeEntityMapping : IEntityTypeConfiguration<WatchTimeEntity>
 
         builder.HasKey(x => new {x.UserId, x.EpisodeId});
 
-        builder.HasOne(x => x.User).WithMany().HasForeignKey(x => x.UserId);
+        builder.HasOne(x => x.User).WithMany(x => x.WatchTimes).HasForeignKey(x => x.UserId);
         builder.HasOne(x => x.Episode).WithMany().HasForeignKey(x => x.EpisodeId);
 
         builder.Property(x => x.SecondsLong).IsRequired();

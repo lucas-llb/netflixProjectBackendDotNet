@@ -5,13 +5,13 @@ namespace netflixProjectBackendDotNet.Api.Models.Request;
 
 public class PaginatedRequest : IValidatableObject
 {
-    public int PerPage { get; set; }
-    public int Page { get; set; }
+    public int PerPage { get; set; } = 10;
+    public int Page { get; set; } = 0;
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if (PerPage < 1 || PerPage > 50)
+        if (PerPage < 0 || PerPage > 50)
         {
-            yield return new ValidationResult("PerPage must be between 1 and 50");
+            yield return new ValidationResult("PerPage must be between 0 and 50");
         }
 
         if (Page < 0)

@@ -10,7 +10,10 @@ public class EpisodeWatchTimeResponse
     {
         if(episodeWatchTime == null)
         {
-            return default;
+            return new()
+            {
+                Seconds = 0,
+            };
         }
 
         return new()

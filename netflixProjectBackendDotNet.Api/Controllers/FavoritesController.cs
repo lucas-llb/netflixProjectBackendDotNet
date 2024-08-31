@@ -28,10 +28,11 @@ public class FavoritesController : ControllerBase
 
         var result = await _favoriteRepository.CreateFavoriteAsync(userId.Value, request.SerieId);
 
-        return Ok(FavoriteResponse.ToResponse(result));
+        return Ok(result);
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(FavoriteResponse), 200)]
     public async Task<IActionResult> GetFavoritesAsync()
     {
         var userId = HttpContext.GetUserId();
@@ -42,7 +43,7 @@ public class FavoritesController : ControllerBase
 
         var result = await _favoriteRepository.GetFavoritesByUserIdAsync(userId.Value);
 
-        return Ok(result.Select(FavoriteResponse.ToResponse));
+        return Ok(FavoriteResponse.ToResponse(result));
     }
 
     [HttpDelete("{serieId:int}")]
